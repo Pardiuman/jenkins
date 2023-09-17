@@ -1,5 +1,9 @@
 pipeline{
     agent none
+    environment{
+        DOCKER_USERNAME='pardiuman'
+        DOCKER_PASSWORD=credentials('docker-passwd')
+    }
     stages{
         stage('build stage'){
             agent{
@@ -9,7 +13,10 @@ pipeline{
             }
             steps{
                 sh 'mvn --version'
-                sh 'anything'
+                sh '''
+                    docker login -u {DOCKER_USERNAME} -p {DOCKER_PASSWORD}
+                '''
+                // sh 'anything'
             }
             post{
                 failure{
