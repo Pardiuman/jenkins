@@ -4,6 +4,9 @@ pipeline{
         DOCKER_USERNAME='pardiuman'
         DOCKER_PASSWORD=credentials('docker-passwd')
     }
+    parameters{
+        string(name: 'pardium', defaultValue: 'dhankhar', description: '')
+    }
     stages{
         stage('build stage'){
             agent{
@@ -13,10 +16,8 @@ pipeline{
             }
             steps{
                 sh 'mvn --version'
-                // sh '''
-                //     docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-                // '''
-                // sh 'anything'
+                echo '$params.pardium'
+                
             }
             post{
                 failure{
