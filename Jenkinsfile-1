@@ -4,11 +4,12 @@ pipeline{
         stage('build stage'){
             agent{
                 docker{
-                    image 'blackbox'
+                    image 'maven:3-jdk-8-alpine'
                 }
-            }
-            steps{
-                sh 'mvn --version'
+            
+                steps{
+                    sh 'mvn --version'
+                }
             }
         }
         stage('echo'){
