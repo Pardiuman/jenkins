@@ -10,6 +10,11 @@ pipeline{
             steps{
                 sh 'mvn --version'
             }
+            post{
+                failure{
+                    echo "need to wrok on this"
+                }
+            }
         }
         stage('echo'){
             agent any
