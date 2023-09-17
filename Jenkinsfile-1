@@ -14,7 +14,7 @@ pipeline{
             steps{
                 sh 'mvn --version'
                 sh '''
-                    docker login -u {DOCKER_USERNAME} -p {DOCKER_PASSWORD}
+                    docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
                 '''
                 // sh 'anything'
             }
