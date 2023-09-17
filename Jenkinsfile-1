@@ -13,9 +13,9 @@ pipeline{
             }
             steps{
                 sh 'mvn --version'
-                sh '''
-                    docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-                '''
+                // sh '''
+                //     docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+                // '''
                 // sh 'anything'
             }
             post{
@@ -28,6 +28,10 @@ pipeline{
             agent any
             steps{
                 echo 'second stage'
+                sh '''
+                    docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+                '''
+                
             }
         }
     }
