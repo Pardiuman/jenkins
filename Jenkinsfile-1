@@ -16,7 +16,11 @@ pipeline{
             }
             steps{
                 sh 'mvn --version'
-                input 'do you want to proceed'
+                input{
+                    message 'do you want to proceed'
+                    ok 'yes'
+                    submitter 'no'
+                }
                 echo 'hello ${params.PARDIUM}'
 
                 
