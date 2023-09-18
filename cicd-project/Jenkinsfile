@@ -1,0 +1,36 @@
+pipeline{
+    agent none
+    parameters{
+        string(name: 'DOCKER-NAME', defaultValue: 'JAVA-PROGRAM', description: '')
+    }
+    environment{
+        DOCKER_CREDS = credentials('docker-cred')
+        BUILD = env.BUILD_NUMBER
+        DOCKERFILE_NAME = ${DOCKER-NAME}
+    }
+    stages{
+        stage('project build'){
+            agent{
+                docker{
+                    image 'maven:3-jdk-8-alpine'
+                }
+            }
+            steps{
+                sh 'mvn clean install'
+            }
+
+        }
+        stage('send dockerfile to ansible server'){
+            agent any
+            steps{
+                sh 'cd src'
+                sshagent(['agent-ssh']) {
+
+                    sh 'ssh -o StrictHostKeyChecking=no -l ubuntu@3.95.19.73 docker build -t $DOCKER_CREDS_USR/$DOCKERFILE_NAME:$build .'
+
+                }
+            }
+
+        }
+    }
+}
