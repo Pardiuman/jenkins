@@ -9,17 +9,18 @@ pipeline{
     }
     stages{
         stage('build stage'){
+            input{
+                message "do you want to proceed"
+                ok "yes"
+                submitter "no"
+            }
             agent{
                 docker{
                     image 'maven:3-jdk-8-alpine'
                 }
             }
             steps{
-                input{
-                    message "do you want to proceed"
-                    ok "yes"
-                    submitter "no"
-                }
+                
                 sh 'mvn --version'
                 
                 echo 'hello ${params.PARDIUM}'
