@@ -30,11 +30,12 @@ pipeline{
             }
             agent any
             steps{
-                sh 'cd src'
-                sshagent(['agent-ssh']) {
-
-                    sh 'ssh -o StrictHostKeyChecking=no -l ubuntu@3.95.19.73 docker build -t $DOCKER_CREDS_USR/$DOCKERFILE_NAME:$build .'
-
+                dir('cicd-project'){
+                    sshagent(['agent-ssh']) {
+                    
+                        sh 'ssh -o StrictHostKeyChecking=no -l ubuntu@3.95.19.73 docker build -t $DOCKER_CREDS_USR/$DOCKERFILE_NAME:$build .'
+    
+                    }
                 }
             }
 
