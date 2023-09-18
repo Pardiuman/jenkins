@@ -5,7 +5,7 @@ pipeline{
         DOCKER_PASSWORD=credentials('docker-passwd')
     }
     parameters{
-        string(name: 'pardium', defaultValue: 'dhankhar', description: '')
+        string(name: 'PARDIUM', defaultValue: 'dhankhar', description: '')
     }
     stages{
         stage('build stage'){
@@ -16,7 +16,9 @@ pipeline{
             }
             steps{
                 sh 'mvn --version'
-                echo '${params.pardium}'
+                input 'do you want to proceed'
+                echo 'hello ${params.PARDIUM}'
+
                 
             }
             post{
