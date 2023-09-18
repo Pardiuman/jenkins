@@ -6,7 +6,7 @@ pipeline{
     environment{
         DOCKER_CREDS = credentials('docker-cred')
         BUILD = "env.BUILD_NUMBER"
-        DOCKERFILE_NAME = "${params.DOCKER-NAME}"
+        
     }
     stages{
         stage('project build'){
@@ -21,6 +21,9 @@ pipeline{
 
         }
         stage('send dockerfile to ansible server'){
+            environment{
+                DOCKERFILE_NAME = "${params.DOCKER-NAME}"
+            }
             agent any
             steps{
                 sh 'cd src'
