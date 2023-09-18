@@ -13,6 +13,7 @@ pipeline{
             agent{
                 docker{
                     image 'maven'
+                    args '--user root'
                 }
             }
             steps{
