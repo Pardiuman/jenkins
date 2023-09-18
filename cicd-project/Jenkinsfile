@@ -32,9 +32,9 @@ pipeline{
             steps{
                 sshagent(['ssh-ansible']) {
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.73'
-                    sh 'scp /var/lib/jenkins/workspace/project/cicd-project ubuntu@3.95.19.73:/home/ubuntu/app'
+                    sh 'scp /var/lib/jenkins/workspace/project/cicd-project/ ubuntu@3.95.19.73:/home/ubuntu/app'
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.73 cd /home/ubuntu/app/cicd-project'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.73 docker build -t $DOCKER_CREDS_USR/$DOCKERFILE_NAME:$build .'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.73 docker build -t $DOCKER_CREDS_USR/$DOCKERFILE_NAME:$BUILD .'
                 }
             }
         }
