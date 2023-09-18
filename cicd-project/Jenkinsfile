@@ -26,7 +26,7 @@ pipeline{
         }
         stage('send dockerfile to ansible server'){
             environment{
-                DOCKERFILE_NAME = "${params.DOCKER-NAME}"
+                DOCKERFILE_NAME = "params.DOCKER-NAME"
             }
             agent any
             steps{
