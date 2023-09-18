@@ -37,7 +37,7 @@ pipeline{
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.73'
                     sh 'scp -r /var/lib/jenkins/workspace/project/cicd-project/ ubuntu@3.95.19.73:/home/ubuntu/app'
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.73 cd /home/ubuntu/app/'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.73 docker build -t $DOCKER_CREDS_USR/javafile:1 -f /home/ubuntu/app/'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.73 cd /home/ubuntu/app/ && docker build -t $DOCKER_CREDS_USR/javafile:1 .'
                 }
             }
         }
