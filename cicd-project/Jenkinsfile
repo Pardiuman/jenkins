@@ -16,6 +16,7 @@ pipeline{
                 }
             }
             steps{
+                sh 'cd project/cicd-project'
                 sh 'mvn clean install'
             }
 
