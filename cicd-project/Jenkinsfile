@@ -29,7 +29,7 @@ pipeline{
             agent any
 
             environment{
-                DOCKERFILE_NAME = params.DOCKER-NAME
+                DOCKERFILE_NAME = "$params.DOCKER-NAME"
             }
             
             steps{
