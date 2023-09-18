@@ -1,11 +1,11 @@
 pipeline{
     agent none
     parameters{
-        string(name: 'DOCKER-NAME', defaultValue: 'JAVA-PROGRAM', description: '')
+        string(name: 'DOCKER', defaultValue: 'JAVA-PROGRAM', description: '')
     }
     environment{
         DOCKER_CREDS = credentials('docker-cred')
-        BUILD = "env.BUILD_NUMBER"
+        BUILD = "$env.BUILD_NUMBER"
         
     }
     stages{
@@ -29,7 +29,7 @@ pipeline{
             agent any
 
             environment{
-                DOCKERFILE_NAME = "$params.DOCKER-NAME"
+                DOCKERFILE_NAME = "$params.DOCKER"
             }
             
             steps{
