@@ -6,7 +6,7 @@ pipeline{
     environment{
         DOCKER_CREDS = credentials('docker-cred')
         BUILD = env.BUILD_NUMBER
-        DOCKERFILE_NAME = ${DOCKER-NAME}
+        DOCKERFILE_NAME = ${params.DOCKER-NAME}
     }
     stages{
         stage('project build'){
