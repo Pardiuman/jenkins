@@ -2,4 +2,4 @@
   become: true
   tasks: 
     - name: deploy kubernetes
-      command: kubectl apply -f deploy.yml -i inv
+      command: kubectl apply -f deploy.yml
