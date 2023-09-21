@@ -47,7 +47,7 @@ pipeline{
             steps{
                 sshagent(['ssh-ansible']){
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 cd /home/ubuntu/app/'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker build -f /home/ubuntu/app/dockerfile -t $DOCKER_CREDS_USR/javafile:$BUILD_NUMBER'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker build -f /home/ubuntu/app/dockerfile -t $DOCKER_CREDS_USR/javafile:$BUILD_NUMBER .'
                 }
             }
         }
