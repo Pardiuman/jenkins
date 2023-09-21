@@ -51,8 +51,8 @@ pipeline{
                         ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 
                         ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 cd /home/ubuntu/
                         ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker build -t javafile:$BUILD_NUMBER .
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker tag javafile:$BUIDL_NUMBER $DOCKER_CREDS_USR/javafile:$BUILD_NUMBER 
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker tag javafile:$BUIDL_NUMBER $DOCKER_CREDS_USR/javafile:latest
+                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker tag javafile:$BUILD_NUMBER $DOCKER_CREDS_USR/javafile:$BUILD_NUMBER 
+                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker tag javafile:$BUILD_NUMBER $DOCKER_CREDS_USR/javafile:latest
                         ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker login -u $DOCKER_CREDS_USR -p $DOCKER_CREDS_PSW
                         ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker push $DOCKER_CREDS_USR/javafile:$BUILD_NUMBER
                         ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker push $DOCKER_CREDS_USR/javafile:latest
