@@ -62,11 +62,12 @@ pipeline{
         }
 
         stage('copy manifests file to ansible server'){
+            agent any
             steps{
                 sshagent(['ssh-ansible']){
 
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 cd /home/ubuntu/'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 cd /home/ubuntu/kubernetes/ && ansible-playbook ansible-deploy.yml'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 cd /home/ubuntu/kubernetes/ && ansible-playbook ansible-deploy.yml -i inv'
 
                 }           
             }
