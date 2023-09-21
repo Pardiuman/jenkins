@@ -1,0 +1,7 @@
+hosts: 100.26.31.191
+become: true
+tasks: 
+  - name: deploy kubernetes
+    k8s:
+      state: present
+      src: /home/ubuntu/manifests/
