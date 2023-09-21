@@ -1,8 +1,8 @@
 pipeline{
     agent none
-    parameters{
-        string(name: 'DOCKER', defaultValue: 'JAVA-PROGRAM', description: '')
-    }
+    // parameters{
+    //     string(name: 'DOCKER', defaultValue: 'JAVA-PROGRAM', description: '')
+    // }
     environment{
         DOCKER_CREDS = credentials('docker-cred')
         BUILD = "$env.BUILD_NUMBER"
@@ -28,16 +28,16 @@ pipeline{
 
             agent any
 
-            environment{
-                DOCKERFILE_NAME = "$params.DOCKER"
-            }
+            // environment{
+            //     DOCKERFILE_NAME = "$params.DOCKER"
+            // }
             
             steps{
-                sshagent(['ssh-ansible']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.73'
-                    sh 'scp -r /var/lib/jenkins/workspace/project/cicd-project/ ubuntu@3.95.19.73:/home/ubuntu/app'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.73 cd /home/ubuntu/app/'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.73 cd /home/ubuntu/app/ && docker build -t $DOCKER_CREDS_USR/javafile:1 .'
+                sshagent(['ansible-ssh']) {
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@18.208.226.106'
+                    sh 'scp -r /var/lib/jenkins/workspace/project/cicd-project/ ubuntu@18.208.226.106:/home/ubuntu/app/'
+                    // sh 'ssh -o StrictHostKeyChecking=no ubuntu@18.208.226.106 cd /home/ubuntu/app/'
+                    // sh 'ssh -o StrictHostKeyChecking=no ubuntu@18.208.226.106 docker build -f /home/ubuntu/app/ -t $DOCKER_CREDS_USR/javafile:1 '
                 }
             }
         }
