@@ -5,7 +5,7 @@ metadata:
   labels:
     app: java
 spec:
-  selectors:
+  selector:
     matchLabels:
       app: java
   replicas: 2
@@ -18,7 +18,7 @@ spec:
         - name: first-deploy-java
           image:  pardiuman/javafile:latest
           ports: 
-            - containerPort: 8080
+            - containerPort: 9099
 
 
 --- 
@@ -28,11 +28,11 @@ kind: Service
 metadata: 
   name: java-App-service
 spec:
-  selectors:
+  selector:
     app: java
   ports:
     - protocol: TCP
-      port: 8080
+      port: 9099
       targetPort: 8080
       nodePort: 30001
   type: NodePort

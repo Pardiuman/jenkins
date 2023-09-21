@@ -48,14 +48,14 @@ pipeline{
             steps{
                 sshagent(['ssh-ansible']){
                     sh '''
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 cd /home/ubuntu/
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker build -t javafile:$BUILD_NUMBER .
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker tag javafile:$BUILD_NUMBER $DOCKER_CREDS_USR/javafile:$BUILD_NUMBER 
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker tag javafile:$BUILD_NUMBER $DOCKER_CREDS_USR/javafile:latest
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker login -u $DOCKER_CREDS_USR -p $DOCKER_CREDS_PSW
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker push $DOCKER_CREDS_USR/javafile:$BUILD_NUMBER
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker push $DOCKER_CREDS_USR/javafile:latest
+                        ssh -o StrictHostKeyChecking=no ubuntu@34.204.5.44 
+                        ssh -o StrictHostKeyChecking=no ubuntu@34.204.5.44 cd /home/ubuntu/
+                        ssh -o StrictHostKeyChecking=no ubuntu@34.204.5.44 docker build -t javafile:$BUILD_NUMBER .
+                        ssh -o StrictHostKeyChecking=no ubuntu@34.204.5.44 docker tag javafile:$BUILD_NUMBER $DOCKER_CREDS_USR/javafile:$BUILD_NUMBER 
+                        ssh -o StrictHostKeyChecking=no ubuntu@34.204.5.44 docker tag javafile:$BUILD_NUMBER $DOCKER_CREDS_USR/javafile:latest
+                        ssh -o StrictHostKeyChecking=no ubuntu@34.204.5.44 docker login -u $DOCKER_CREDS_USR -p $DOCKER_CREDS_PSW
+                        ssh -o StrictHostKeyChecking=no ubuntu@34.204.5.44 docker push $DOCKER_CREDS_USR/javafile:$BUILD_NUMBER
+                        ssh -o StrictHostKeyChecking=no ubuntu@34.204.5.44 docker push $DOCKER_CREDS_USR/javafile:latest
                     '''
                 }
             }
@@ -66,8 +66,8 @@ pipeline{
             steps{
                 sshagent(['ssh-ansible']){
 
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 cd /home/ubuntu/'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 cd /home/ubuntu/kubernetes/ && ansible-playbook ansible-deploy.yml -i inv'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@34.204.5.44 cd /home/ubuntu/'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@34.204.5.44 cd /home/ubuntu/kubernetes/ && ansible-playbook ansible-deploy.yml -i inv'
 
                 }           
             }
