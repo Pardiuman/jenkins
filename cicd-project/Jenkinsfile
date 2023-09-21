@@ -35,8 +35,8 @@ pipeline{
             steps{
                 sshagent(['ssh-ansible']) {
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37'
-                    sh 'scp -r /var/lib/jenkins/workspace/project/cicd-project/* ubuntu@3.95.19.37:/home/ubuntu/app/'
-                    sh 'rsync --checksum -ru /var/lib/jenkins/workspace/project/cicd-project/ ubuntu@3.95.19.37:/home/ubuntu/app/'
+                    sh 'scp -r /var/lib/jenkins/workspace/project/cicd-project/* ubuntu@3.95.19.37:/home/ubuntu/'
+                    // sh 'rsync --checksum -ru /var/lib/jenkins/workspace/project/cicd-project/ ubuntu@3.95.19.37:/home/ubuntu/'
                     // sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 cd /home/ubuntu/app/'
                     // sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker build -f /home/ubuntu/app/ -t $DOCKER_CREDS_USR/javafile:1 '
                 }
@@ -49,8 +49,8 @@ pipeline{
                 sshagent(['ssh-ansible']){
                     sh '''
                         ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 cd /home/ubuntu/app/
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker build -f /home/ubuntu/app/dockerfile -t $DOCKER_CREDS_USR/javafile:$BUILD_NUMBER .
+                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 cd /home/ubuntu/
+                        ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker build -t $DOCKER_CREDS_USR/javafile:$BUILD_NUMBER .
                         
                     '''
                 }
