@@ -41,5 +41,15 @@ pipeline{
                 }
             }
         }
+
+        stage('build dockerfile'){
+            agent any
+            steps{
+                sshagent(['ssh-ansible']){
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker build -t $DOCKER_CREDS_USR/javafile:$BUILD_NUMBER'
+                }
+            }
+        }
     }
 }
