@@ -33,11 +33,11 @@ pipeline{
             // }
             
             steps{
-                sshagent(['ansible-ssh']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@18.208.226.106'
-                    sh 'scp -r /var/lib/jenkins/workspace/project/cicd-project/ ubuntu@18.208.226.106:/home/ubuntu/app/'
-                    // sh 'ssh -o StrictHostKeyChecking=no ubuntu@18.208.226.106 cd /home/ubuntu/app/'
-                    // sh 'ssh -o StrictHostKeyChecking=no ubuntu@18.208.226.106 docker build -f /home/ubuntu/app/ -t $DOCKER_CREDS_USR/javafile:1 '
+                sshagent(['ssh-ansible']) {
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37'
+                    sh 'scp -r /var/lib/jenkins/workspace/project/cicd-project/ ubuntu@3.95.19.37:/home/ubuntu/app/'
+                    // sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 cd /home/ubuntu/app/'
+                    // sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.95.19.37 docker build -f /home/ubuntu/app/ -t $DOCKER_CREDS_USR/javafile:1 '
                 }
             }
         }
