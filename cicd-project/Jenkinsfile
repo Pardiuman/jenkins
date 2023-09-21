@@ -67,6 +67,7 @@ pipeline{
                 sshagent(['ssh-ansible']){
 
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@34.204.5.44 cd /home/ubuntu/'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@34.204.5.44 echo $PATH'
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@34.204.5.44 cd /home/ubuntu/kubernetes/ && /usr/bin/ansible-playbook ansible-deploy.yml -i inv'
 
                 }           
