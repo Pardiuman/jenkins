@@ -16,7 +16,7 @@ pipeline{
                 //     }
                 
                 // }
-                sh 'mvn clean install'
+                sh 'cd cicd-project2 && mvn clean install'
                 
             }
 
