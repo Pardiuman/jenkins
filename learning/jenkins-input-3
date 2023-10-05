@@ -1,0 +1,22 @@
+pipeline{
+    agent none
+    stages{
+        stage('input'){
+            steps{
+                script{
+                    name=input(
+                        message: 'hello'
+                        ok: 'Submit'
+                        parameters: string(name: 'FIRSTNAME', defaultValue: 'pardium')
+                    )
+                }
+            }
+        }
+        stage('result'){
+            agent any
+            steps{
+                echo $name
+            }
+        }
+    }
+}

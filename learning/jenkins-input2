@@ -1,0 +1,17 @@
+pipeline{
+    agent none
+    stages{
+        stage('input'){
+            
+            steps{
+                input(message: 'hello' , ok: 'submit')
+            }
+        }
+        stage('all done'){
+            agent any
+            steps{
+                sh 'cat /etc/*release*'
+            }
+        }
+    }
+}
