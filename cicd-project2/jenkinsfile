@@ -11,8 +11,8 @@ pipeline{
             }
             steps{
                 script{
-                    withSonarQubeEnv(credentialsId: 'sonarqube') {
-                        sh 'mvn sonar:sonar'
+                    withSonarQubeEnv(credentialsId: 'sonar-secret') {
+                        sh 'cd cicd-project2 && mvn sonar:sonar'
                     }
                 
                 
