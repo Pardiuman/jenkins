@@ -5,28 +5,27 @@ pipeline{
             agent{
             docker {
                 image 'maven:3.9.3-eclipse-temurin-17'
+                args '--user root'
                 
             }
         }
             steps{
                 script{
                     withSonarQubeEnv(credentialsId: 'sonarqube-secret') {
-                        // some block
                         sh 'mvn sonar:sonar'
                     }
-                //     withSonarQubeEnv('sonarqube'){
-                //     sh 'mvn sonar:sonar'
-                // }
+                
                 }
                 
             }
 
         }
-        // stage(){
-
-        // }
+        
     }
-    // post{
-
-    // }
+    
 }
+
+
+//     withSonarQubeEnv('sonarqube'){
+                //     sh 'mvn sonar:sonar'
+                // }
