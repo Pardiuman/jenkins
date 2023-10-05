@@ -3,24 +3,24 @@ pipeline{
     stages{
         stage('quality gates check'){
             agent{
-            docker {
-                image 'maven:3.9.3-eclipse-temurin-17'
-                args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
-                
+                docker {
+                    image 'maven'
+                    args '-user root'
+
+                }
             }
-        }
             steps{
-                // script{
-                //     withSonarQubeEnv(credentialsId: 'sonarqube-secret') {
-                //         sh 'mvn sonar:sonar'
-                //     }
+                script{
+                    withSonarQubeEnv(credentialsId: 'sonar-secret') {
+                        sh 'mvn sonar:sonar'
+                    }
                 
-                // }
-                sh 'cd cicd-project2 && mvn clean install'
                 
+                    sh 'cd cicd-project2 && mvn clean install'
+                }
             }
 
-        }
+        }   
         
     }
     
