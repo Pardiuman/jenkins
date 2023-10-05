@@ -1,13 +1,12 @@
 pipeline{
     agent any
-    // environment{
-
-    // }
-    tools{
-        maven 'apache-maven-3.0.1'
-
-    }
     stages{
+        agent{
+            docker {
+                image 'maven:3.9.3-eclipse-temurin-17'
+                
+            }
+        }
         stage('quality gates check'){
             steps{
                 withSonarQubeEnv('sonar-server'){
