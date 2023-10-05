@@ -9,13 +9,16 @@ pipeline{
             }
         }
             steps{
-                withSonarQubeEnv(credentialsId: 'sonarqube-secret') {
-                    // some block
+                script{
+                    // withSonarQubeEnv(credentialsId: 'sonarqube-secret') {
+                    //     // some block
+                    //     sh 'mvn sonar:sonar'
+                    // }
+                    withSonarQubeEnv('sonarqube'){
                     sh 'mvn sonar:sonar'
                 }
-                // withSonarQubeEnv('sonarqube'){
-                //     sh 'mvn sonar:sonar'
-                // }
+                }
+                
             }
 
         }
