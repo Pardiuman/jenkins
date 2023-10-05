@@ -1,0 +1,26 @@
+pipeline{
+    agent any
+    // environment{
+
+    // }
+    tools{
+        mvn 
+
+    }
+    stages{
+        stage('quality gates check'){
+            steps{
+                withSonarQubeEnv('sonar-server'){
+                    sh 'mvn sonar:sonar'
+                }
+            }
+
+        }
+        // stage(){
+
+        // }
+    }
+    // post{
+
+    // }
+}
