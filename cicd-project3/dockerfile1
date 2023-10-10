@@ -1,0 +1,6 @@
+FROM maven:3.8.1-openjdk-17-slim
+WORKDIR /app
+copy . .
+RUN mvn clean install
+EXPOSE 9099
+CMD ["java","-jar","Sample-Application.jar"]

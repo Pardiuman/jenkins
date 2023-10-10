@@ -1,31 +1,45 @@
 pipeline{
     agent any
     stages{
-        stage('sonar'){
-            agent{
-                docker{
-                    image 'maven'
-                    args '-v $HOME/.m2:/root/.m2 --user=root'
-                }
-            }
-            steps{
-                script{
-                    withSonarQubeEnv(credentialsId: 'sonar-secret') {
-                        sh 'cd cicd-project3 && mvn clean install'
-                        sh 'cd cicd-project3 && mvn sonar:sonar'
+        // stage('sonar'){
+        //     agent{
+        //         docker{
+        //             image 'maven'
+        //             args '-v $HOME/.m2:/root/.m2 --user=root'
+        //         }
+        //     }
+        //     steps{
+        //         script{
+        //             withSonarQubeEnv(credentialsId: 'sonar-secret') {
+        //                 sh 'cd cicd-project3 && mvn clean install'
+        //                 sh 'cd cicd-project3 && mvn sonar:sonar'
 
-                    }
+        //             }
 
-                    timeout(time: 1, unit: 'HOURS'){
-                        def qualityGate = waitForQualityGate()
-                        if(qualityGate.status != 'OK'){
-                            error "quality gate failure ${qualityGate.status}"
-                        }
-                    }
+        //             timeout(time: 1, unit: 'HOURS'){
+        //                 def qualityGate = waitForQualityGate()
+        //                 if(qualityGate.status != 'OK'){
+        //                     error "quality gate failure ${qualityGate.status}"
+        //                 }
+        //             }
 
                    
+        //         }
+        //     }
+        // }
+                  // commenting becuase ec2 does incurr charges and i have successfully executed this stage so this is going to execute again and again.
+
+
+        stage('build and push docker image'){
+            steps{
+                withCredentials([usernameColonPassword(credentialsId: 'nexus-credentials', variable: 'nexus-cred')]) {
+                    sh 'cd cicd-project3 && docker build -t 35.153.57.125:8083/javaApp:${BUILD_NUMBER} -f dockerfile1 .'
+                    sh 'docker login -u nexus-cred.USR -p nexus-cred.PSW'
+                    sh 'docker push 35.153.57.125:8083/javaApp:${BUILD_NUMBER}'
+                    sh 'docker rmi 35.153.57.125:8083/javaApp:${BUILD_NUMBER}' 
                 }
             }
         }
+
     }
 }
