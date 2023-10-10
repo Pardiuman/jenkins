@@ -46,7 +46,7 @@ pipeline{
 
     post{
         always{
-            mail bcc: '', body: 'project : ${env.JOB_NAME} <br>build number: ${env.BUILD_NUMBER} <br> buildurl: ${env.BUILD_URL}',  subject: 'pipeline status', to: 'pardium58@gmail.com'
+            mail bcc: '', body: 'project : ${JOB_NAME} <br>build number: ${BUILD_NUMBER} <br> buildurl: ${BUILD_URL}',  subject: 'pipeline status', to: 'pardium58@gmail.com'
         }
     }
 }
