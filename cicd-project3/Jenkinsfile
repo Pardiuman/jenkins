@@ -34,7 +34,7 @@ pipeline{
             steps{
                 withCredentials([usernamePassword(credentialsId: 'nexus-credentials', passwordVariable: 'nexus-psw', usernameVariable: 'nexus-usr')]) {
                     sh 'cd cicd-project3 && docker build -t 35.153.57.125:8083/java-app:${BUILD_NUMBER} -f dockerfile1 .'
-                    sh 'docker login -u ${nexus-usr} -p ${nexus-psw}'
+                    sh 'docker login -u $nexus-usr -p $nexus-psw 35.153.57.125:8083'
                     sh 'docker push 35.153.57.125:8083/java-app:${BUILD_NUMBER}'
                     sh 'docker rmi 35.153.57.125:8083/java-app:${BUILD_NUMBER}' 
                 }
