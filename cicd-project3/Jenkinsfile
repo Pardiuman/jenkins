@@ -13,6 +13,14 @@ pipeline{
                     withSonarQubeEnv(credentialsId: 'sonar-secret') {
                         sh 'cd cicd-project3 && mvn clean install'
                         sh 'cd cicd-project3 && mvn sonar:sonar'
+
+                    }
+
+                    timeout(time: 1, unit: 'HOURS'){
+                        def qualityGate = waitForQualityGates()
+                        if(qualityGate != 'OK'){
+                            error "quality gate failure ${qualityGate.status}"
+                        }
                     }
 
                    
