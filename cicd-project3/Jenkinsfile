@@ -71,8 +71,12 @@ pipeline{
 
         stage('manual approval'){
             steps{
-                timeout(10){
-                    input(id: 'for deploy purpose', message: 'Deploy $JOB_NAME' , ok: 'Deploy')
+                script{
+
+                    
+                    timeout(10){
+                        input(id: 'for deploy purpose', message: 'Deploy $JOB_NAME' , ok: 'Deploy')
+                    }
                 }
             }
         }
