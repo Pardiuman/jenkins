@@ -59,8 +59,7 @@ pipeline{
                     sh '''
                         helmVersion=$(helm show chart java-app | grep 'version' | awk '{print $2}')
                         tar -czvf java-app-${helmVersion}.tgz java-app/
-                        curl -u admin:8609 -T cicd-project3/k8s/java-app-${helmVersion} http://34.207.253.31:8081/repositories/helm-repo/
-
+                        curl -u admin:8609 http://34.207.253.31:8081/repositories/helm-repo/ --upload-file java-app-${helmVersion}.tgz
 
                     '''
                     
