@@ -50,6 +50,8 @@ pipeline{
         //     }
         // }
 
+                // added comment because skip this stage
+
         stage('push helm repo to nexus'){
             steps{
 
@@ -74,3 +76,5 @@ pipeline{
         }
     }
 }
+
+
