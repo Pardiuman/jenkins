@@ -42,13 +42,28 @@ pipeline{
         //     }
         // }
 
-        stage('check for misconf'){
+        // stage('check for misconf'){
+        //     steps{
+        //         dir('cicd-project3/k8s/') {
+        //             sh  'helm datree test java-app'
+        //         }
+        //     }
+        // }
+
+        stage('push helm repo to nexus'){
             steps{
-                dir('cicd-project3/k8s/') {
-                    sh  'helm datree test java-app'
+
+                dir('cicd-project3/k8s/'){
+                    sh '''
+                        helmVersion=$(helm show chart java-app | grep 'version' | awk '{print $2}')
+                        tar -czvf java-app-${helmVersion}.tgz java-app/
+                        curl -u admin:8609 http://34.207.253.31:8081/repositories/helm-repo/ --upload file java-app-${helmVersion}
+
+                    '''
                 }
 
             }
+            
         }
 
     }
