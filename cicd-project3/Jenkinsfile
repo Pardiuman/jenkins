@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        KUBECONFIG='/home/ubuntu/kubeconfig'
+        KUBECONFIG='/var/lib/jenkins/kubeconfig'
     }
     stages{
         // stage('sonar'){
