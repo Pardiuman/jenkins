@@ -73,6 +73,7 @@ pipeline{
             steps{
                 sshagent(['minikube-ssh']) {
                     sh 'ssh -o StrictHostKeyChecking=no -l ubuntu 54.161.72.209 kubectl --kubeconfig=/home/ubuntu/.kube/config get pods'
+                    sh 'scp /var/lib/jenkins/workspace/project/ ubuntu@54.161.72.209:/home/app'
                 }
             }
         }
