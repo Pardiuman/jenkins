@@ -30,15 +30,24 @@ pipeline{
                   // commenting becuase ec2 does incurr charges and i have successfully executed this stage so this is going to execute again and again.
 
 
-        stage('build and push docker image'){
+        // stage('build and push docker image'){
+        //     steps{
+        //         withCredentials([usernamePassword(credentialsId: 'nexus-credentials', passwordVariable: 'nexus-psw', usernameVariable: 'nexus-usr')]) {
+        //             sh 'cd cicd-project3 && docker build -t 35.153.57.125:8083/java-app:${BUILD_NUMBER} -f dockerfile1 .'
+        //             // sh 'docker login -u $nexus-usr -p $nexus-psw 35.153.57.125:8083'
+        //             sh 'docker login -u admin -p 8609 35.153.57.125:8083'
+        //             sh 'docker push 35.153.57.125:8083/java-app:${BUILD_NUMBER}'
+        //             sh 'docker rmi 35.153.57.125:8083/java-app:${BUILD_NUMBER}' 
+        //         }
+        //     }
+        // }
+
+        stage('check for misconf'){
             steps{
-                withCredentials([usernamePassword(credentialsId: 'nexus-credentials', passwordVariable: 'nexus-psw', usernameVariable: 'nexus-usr')]) {
-                    sh 'cd cicd-project3 && docker build -t 35.153.57.125:8083/java-app:${BUILD_NUMBER} -f dockerfile1 .'
-                    // sh 'docker login -u $nexus-usr -p $nexus-psw 35.153.57.125:8083'
-                    sh 'docker login -u admin -p 8609 35.153.57.125:8083'
-                    sh 'docker push 35.153.57.125:8083/java-app:${BUILD_NUMBER}'
-                    sh 'docker rmi 35.153.57.125:8083/java-app:${BUILD_NUMBER}' 
+                dir('cicd-project3/k8s/') {
+                    sh  'helm datree test java-app'
                 }
+
             }
         }
 
