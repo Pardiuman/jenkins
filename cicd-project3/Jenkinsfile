@@ -69,6 +69,14 @@ pipeline{
         //     }   
         // }
 
+        stage('manual approval'){
+            steps{
+                timeout(10){
+                    input(id: 'for deploy purpose', message: 'Deploy $JOB_NAME' , ok: 'Deploy')
+                }
+            }
+        }
+
         stage('deploy on k8s'){
             steps{
                 sshagent(['minikube-ssh']) {
