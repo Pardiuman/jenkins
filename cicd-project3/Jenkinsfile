@@ -75,7 +75,7 @@ pipeline{
 
                     
                     timeout(10){
-                        input(id: 'for deploy purpose', message: 'Deploy $JOB_NAME' , ok: 'Deploy')
+                        input(id: 'for_deploy_purpose', message: 'Deploy $JOB_NAME' , ok: 'Deploy')
                     }
                 }
             }
