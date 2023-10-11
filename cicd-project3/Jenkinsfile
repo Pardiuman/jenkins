@@ -71,7 +71,9 @@ pipeline{
 
         stage('deploy on k8s'){
             steps{
-                sh 'kubectl get pods'
+                sshagent(['minikube-ssh']) {
+                    sh 'ssh -o StrictHostKeyChecking=no -l ubuntu 54.161.72.209 kubectl --kubeconfig=/home/ubuntu/.kube/config get pods'
+                }
             }
         }
 
