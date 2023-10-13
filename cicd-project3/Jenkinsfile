@@ -69,17 +69,7 @@ pipeline{
         //     }   
         // }
 
-        stage('manual approval'){
-            steps{
-                script{
-
-                    
-                    timeout(10){
-                        input(id: 'for_deploy_purpose', message: 'Deploy $JOB_NAME' , ok: 'Deploy')
-                    }
-                }
-            }
-        }
+        
 
         stage('deploy on k8s'){
             steps{
