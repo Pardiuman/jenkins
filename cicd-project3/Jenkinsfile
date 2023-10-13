@@ -4,70 +4,70 @@ pipeline{
         KUBECONFIG='/var/lib/jenkins/kubeconfig'
     }
     stages{
-        // stage('sonar'){
-        //     agent{
-        //         docker{
-        //             image 'maven'
-        //             args '-v $HOME/.m2:/root/.m2 --user=root'
-        //         }
-        //     }
-        //     steps{
-        //         script{
-        //             withSonarQubeEnv(credentialsId: 'sonar-secret') {
-        //                 sh 'cd cicd-project3 && mvn clean install'
-        //                 sh 'cd cicd-project3 && mvn sonar:sonar'
+        stage('sonar'){
+            agent{
+                docker{
+                    image 'maven'
+                    args '-v $HOME/.m2:/root/.m2 --user=root'
+                }
+            }
+            steps{
+                script{
+                    withSonarQubeEnv(credentialsId: 'sonar-secret') {
+                        sh 'cd cicd-project3 && mvn clean install'
+                        sh 'cd cicd-project3 && mvn sonar:sonar'
 
-        //             }
+                    }
 
-        //             timeout(time: 1, unit: 'HOURS'){
-        //                 def qualityGate = waitForQualityGate()
-        //                 if(qualityGate.status != 'OK'){
-        //                     error "quality gate failure ${qualityGate.status}"
-        //                 }
-        //             }
+                    timeout(time: 1, unit: 'HOURS'){
+                        def qualityGate = waitForQualityGate()
+                        if(qualityGate.status != 'OK'){
+                            error "quality gate failure ${qualityGate.status}"
+                        }
+                    }
 
                    
-        //         }
-        //     }
-        // }
-                  // commenting becuase ec2 does incurr charges and i have successfully executed this stage so this is going to execute again and again.
+                }
+            }
+        }
+                  commenting becuase ec2 does incurr charges and i have successfully executed this stage so this is going to execute again and again.
 
 
-        // stage('build and push docker image'){
-        //     steps{
-        //         withCredentials([usernamePassword(credentialsId: 'nexus-credentials', passwordVariable: 'nexus-psw', usernameVariable: 'nexus-usr')]) {
-        //             sh 'cd cicd-project3 && docker build -t 35.153.57.125:8083/java-app:${BUILD_NUMBER} -f dockerfile1 .'
-        //             // sh 'docker login -u $nexus-usr -p $nexus-psw 35.153.57.125:8083'
-        //             sh 'docker login -u admin -p 8609 35.153.57.125:8083'
-        //             sh 'docker push 35.153.57.125:8083/java-app:${BUILD_NUMBER}'
-        //             sh 'docker rmi 35.153.57.125:8083/java-app:${BUILD_NUMBER}' 
-        //         }
-        //     }
-        // }
+        stage('build and push docker image'){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'nexus-credentials', passwordVariable: 'nexus-psw', usernameVariable: 'nexus-usr')]) {
+                    sh 'cd cicd-project3 && docker build -t 35.153.57.125:8083/java-app:${BUILD_NUMBER} -f dockerfile1 .'
+                    // sh 'docker login -u $nexus-usr -p $nexus-psw 35.153.57.125:8083'
+                    sh 'docker login -u admin -p 8609 35.153.57.125:8083'
+                    sh 'docker push 35.153.57.125:8083/java-app:${BUILD_NUMBER}'
+                    sh 'docker rmi 35.153.57.125:8083/java-app:${BUILD_NUMBER}' 
+                }
+            }
+        }
 
-        // stage('check for misconf'){
-        //     steps{
-        //         dir('cicd-project3/k8s/') {
-        //             sh  'helm datree test java-app'
-        //         }
-        //     }
-        // }
+        stage('check for misconf'){
+            steps{
+                dir('cicd-project3/k8s/') {
+                    sh  'helm datree test java-app'
+                }
+            }
+        }
 
-                // added comment because skip this stage
+                added comment because skip this stage
 
-        // stage('push helm repo to nexus'){
-        //     steps{
+        stage('push helm repo to nexus'){
+            steps{
 
-        //         dir('cicd-project3/k8s/'){
-        //             sh '''
-        //                 helmVersion=$(helm show chart java-app | grep 'version' | awk '{print $2}')
-        //                 tar -czvf java-app-${helmVersion}.tgz java-app/
-        //                 curl -u admin:8609 http://34.207.253.31:8081/repository/helm-repo/ -T java-app-${helmVersion}.tgz -v
+                dir('cicd-project3/k8s/'){
+                    sh '''
+                        helmVersion=$(helm show chart java-app | grep 'version' | awk '{print $2}')
+                        tar -czvf java-app-${helmVersion}.tgz java-app/
+                        curl -u admin:8609 http://34.207.253.31:8081/repository/helm-repo/ -T java-app-${helmVersion}.tgz -v
 
-        //             '''   
-        //         }
-        //     }   
-        // }
+                    '''   
+                }
+            }   
+        }
 
         
 
@@ -76,6 +76,7 @@ pipeline{
                 sshagent(['minikube-ssh']) {
                     sh 'ssh -o StrictHostKeyChecking=no -l ubuntu 54.161.72.209 kubectl --kubeconfig=/home/ubuntu/.kube/config get pods'
                     sh 'scp -r /var/lib/jenkins/workspace/project ubuntu@54.161.72.209:/home/app'
+                    // working on it
                 }
             }
         }
